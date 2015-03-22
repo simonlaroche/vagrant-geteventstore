@@ -1,17 +1,12 @@
-sudo apt-get update
+#!/bin/bash
+test -d EventStore-OSS-Linux-v3.0.3 || (
+    wget -c http://download.geteventstore.com/binaries/EventStore-OSS-Linux-v3.0.3.tar.gz
+    tar -xvzf EventStore-OSS-Linux-v3.0.3.tar.gz
+)
 
-wget http://ha.geteventstore.com/showcase/EventStore-Mono-v2.5.0rc4.tar.gz
+cd EventStore-OSS-Linux-v3.0.3
 
-tar -xvzf EventStore-Mono-v2.5.0rc4.tar.gz
+mkdir -p $HOME/es-log/
+mkdir -p $HOME/es-db/
+./run-node.sh --ext-ip=192.168.50.11 --log $HOME/es-log/ --db=$HOME/es-db/ &
 
-
-if [ ! -f "EventStore-Mono-v2.5.0rc4/singlenode-config.json" ]; then
-  echo "file missing"
-  cat <<EOF > EventStore-Mono-v2.5.0rc4/singlenode-config.json
-{ ip: "192.168.50.11"}
-EOF
-fi
-
-cd EventStore-Mono-v2.5.0rc4/
-
-./run-singlenode.sh &
