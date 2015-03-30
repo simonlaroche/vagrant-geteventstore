@@ -10,7 +10,8 @@ To use the SingleNode environment
 
     vagrant up --provider=vmware_fusion
 
-When it's finished provisioning, then visit http://192.168.50.11:2113/ in your browser
+When it's finished provisioning, then visit http://192.168.50.11:2113/ in your browser.
+When installing the Event Store a default user is created. This user is __admin__ and the password is __changeit__.
     
 More boxes will appear here for virtualbox etc. This is very much a testbed right now so use with caution. IT IS NOT PRODUCTION READY AT ALL
 
