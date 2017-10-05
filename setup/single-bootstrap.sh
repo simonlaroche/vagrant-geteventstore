@@ -1,12 +1,13 @@
 #!/bin/bash
-test -d EventStore-OSS-Linux-v3.0.3 || (
-    wget -c http://download.geteventstore.com/binaries/EventStore-OSS-Linux-v3.0.3.tar.gz
-    tar -xvzf EventStore-OSS-Linux-v3.0.3.tar.gz
-)
 
-cd EventStore-OSS-Linux-v3.0.3
+curl -s https://packagecloud.io/install/repositories/EventStore/EventStore-OSS/script.deb.sh | sudo bash
+sudo apt-get install eventstore-oss=4.0.3
 
-mkdir -p $HOME/es-log/
-mkdir -p $HOME/es-db/
-./run-node.sh --ext-ip=192.168.50.11 --log $HOME/es-log/ --db=$HOME/es-db/ --run-projections=all &
+cat >/etc/eventstore/eventstore.conf <<EOL
+---
+ClusterSize: 1
+ExtIp: 0.0.0.0
+RunProjections: All
+EOL
 
+sudo service eventstore start
